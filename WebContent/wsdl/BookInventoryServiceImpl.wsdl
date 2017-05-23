@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions targetNamespace="http://service.unilib.com" xmlns:apachesoap="http://xml.apache.org/xml-soap" xmlns:impl="http://service.unilib.com" xmlns:intf="http://service.unilib.com" xmlns:tns1="http://dao.unilib.com" xmlns:tns2="http://model.unilib.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:wsdlsoap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+<!--WSDL created by Apache Axis version: 1.4
+Built on Apr 22, 2006 (06:55:48 PDT)-->
+ <wsdl:types>
+  <schema elementFormDefault="qualified" targetNamespace="http://service.unilib.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://model.unilib.com"/>
+   <import namespace="http://dao.unilib.com"/>
+   <element name="saveBook">
+    <complexType>
+     <sequence>
+      <element name="book" type="tns1:Book"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="saveBookResponse">
+    <complexType>
+     <sequence>
+      <element name="saveBookReturn" type="tns2:Validation"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="validateBook">
+    <complexType>
+     <sequence>
+      <element name="book" type="tns1:Book"/>
+     </sequence>
+    </complexType>
+   </element>
+   <element name="validateBookResponse">
+    <complexType>
+     <sequence>
+      <element name="validateBookReturn" type="tns2:Validation"/>
+     </sequence>
+    </complexType>
+   </element>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://dao.unilib.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://model.unilib.com"/>
+   <complexType name="Book">
+    <sequence>
+     <element name="authors" nillable="true" type="xsd:string"/>
+     <element name="id" nillable="true" type="xsd:int"/>
+     <element name="inlib" nillable="true" type="xsd:boolean"/>
+     <element name="isbn" nillable="true" type="xsd:string"/>
+     <element name="publisheddate" nillable="true" type="xsd:dateTime"/>
+     <element name="publisher" nillable="true" type="xsd:string"/>
+     <element name="status" nillable="true" type="xsd:string"/>
+     <element name="title" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+  <schema elementFormDefault="qualified" targetNamespace="http://model.unilib.com" xmlns="http://www.w3.org/2001/XMLSchema">
+   <import namespace="http://dao.unilib.com"/>
+   <complexType name="Validation">
+    <sequence>
+     <element name="status" nillable="true" type="xsd:int"/>
+     <element name="statusMessage" nillable="true" type="xsd:string"/>
+     <element name="bookTitle" nillable="true" type="xsd:string"/>
+     <element name="bookAuthor" nillable="true" type="xsd:string"/>
+     <element name="publisher" nillable="true" type="xsd:string"/>
+    </sequence>
+   </complexType>
+  </schema>
+ </wsdl:types>
+
+   <wsdl:message name="validateBookResponse">
+
+      <wsdl:part element="impl:validateBookResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="saveBookRequest">
+
+      <wsdl:part element="impl:saveBook" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="validateBookRequest">
+
+      <wsdl:part element="impl:validateBook" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:message name="saveBookResponse">
+
+      <wsdl:part element="impl:saveBookResponse" name="parameters">
+
+      </wsdl:part>
+
+   </wsdl:message>
+
+   <wsdl:portType name="BookInventoryServiceImpl">
+
+      <wsdl:operation name="saveBook">
+
+         <wsdl:input message="impl:saveBookRequest" name="saveBookRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:saveBookResponse" name="saveBookResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="validateBook">
+
+         <wsdl:input message="impl:validateBookRequest" name="validateBookRequest">
+
+       </wsdl:input>
+
+         <wsdl:output message="impl:validateBookResponse" name="validateBookResponse">
+
+       </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:portType>
+
+   <wsdl:binding name="BookInventoryServiceImplSoapBinding" type="impl:BookInventoryServiceImpl">
+
+      <wsdlsoap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+
+      <wsdl:operation name="saveBook">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="saveBookRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="saveBookResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+      <wsdl:operation name="validateBook">
+
+         <wsdlsoap:operation soapAction=""/>
+
+         <wsdl:input name="validateBookRequest">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:input>
+
+         <wsdl:output name="validateBookResponse">
+
+            <wsdlsoap:body use="literal"/>
+
+         </wsdl:output>
+
+      </wsdl:operation>
+
+   </wsdl:binding>
+
+   <wsdl:service name="BookInventoryServiceImplService">
+
+      <wsdl:port binding="impl:BookInventoryServiceImplSoapBinding" name="BookInventoryServiceImpl">
+
+         <wsdlsoap:address location="http://localhost:8080/UniLib/services/BookInventoryServiceImpl"/>
+
+      </wsdl:port>
+
+   </wsdl:service>
+
+</wsdl:definitions>

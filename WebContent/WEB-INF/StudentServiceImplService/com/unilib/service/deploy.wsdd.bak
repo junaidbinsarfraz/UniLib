@@ -1,0 +1,37 @@
+<!-- Use this file to deploy some handlers/chains and services      -->
+<!-- Two ways to do this:                                           -->
+<!--   java org.apache.axis.client.AdminClient deploy.wsdd          -->
+<!--      after the axis server is running                          -->
+<!-- or                                                             -->
+<!--   java org.apache.axis.utils.Admin client|server deploy.wsdd   -->
+<!--      from the same directory that the Axis engine runs         -->
+
+<deployment
+    xmlns="http://xml.apache.org/axis/wsdd/"
+    xmlns:java="http://xml.apache.org/axis/wsdd/providers/java">
+
+  <!-- Services from StudentServiceImplService WSDL service -->
+
+  <service name="StudentServiceImpl" provider="java:RPC" style="wrapped" use="literal">
+      <parameter name="wsdlTargetNamespace" value="http://service.unilib.com"/>
+      <parameter name="wsdlServiceElement" value="StudentServiceImplService"/>
+      <parameter name="schemaQualified" value="http://dao.unilib.com,http://service.unilib.com"/>
+      <parameter name="wsdlServicePort" value="StudentServiceImpl"/>
+      <parameter name="className" value="com.unilib.service.StudentServiceImplSoapBindingImpl"/>
+      <parameter name="wsdlPortType" value="StudentServiceImpl"/>
+      <parameter name="typeMappingVersion" value="1.2"/>
+      <operation name="validateStudent" qname="operNS:validateStudent" xmlns:operNS="http://service.unilib.com" returnQName="retNS:validateStudentReturn" xmlns:retNS="http://service.unilib.com" returnType="rtns:boolean" xmlns:rtns="http://www.w3.org/2001/XMLSchema" soapAction="" >
+        <parameter qname="pns:student" xmlns:pns="http://service.unilib.com" type="tns:Student" xmlns:tns="http://dao.unilib.com"/>
+      </operation>
+      <parameter name="allowedMethods" value="validateStudent"/>
+
+      <typeMapping
+        xmlns:ns="http://dao.unilib.com"
+        qname="ns:Student"
+        type="java:com.unilib.dao.Student"
+        serializer="org.apache.axis.encoding.ser.BeanSerializerFactory"
+        deserializer="org.apache.axis.encoding.ser.BeanDeserializerFactory"
+        encodingStyle=""
+      />
+  </service>
+</deployment>
